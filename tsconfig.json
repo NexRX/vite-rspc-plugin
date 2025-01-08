@@ -8,6 +8,7 @@
       "esModuleInterop": true,
       "jsx": "preserve",
       "jsxImportSource": "solid-js",
+      "resolveJsonModule": true,
       "lib": [
         "DOM",
         "DOM.Iterable",
@@ -18,6 +19,6 @@
         "node"
       ],
       "noEmit": true,
-      "isolatedModules": true,
+      "isolatedModules": true
     }
   }

@@ -1,13 +1,17 @@
 {
   "name": "vite-rspc-plugin",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "A vite plugin for auto-generating dedicated functions for RSPC per query, mutation, and subscription with typescript",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "vitest"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": [
+    "vite",
+    "rspc",
+    "plugin",
+    "typescript"
+  ],
+  "author": "NexRX",
   "license": "ISC",
   "dependencies": {
     "@rspc/client": "^0.3.1",
@@ -15,6 +19,10 @@
     "vite": "^6.0.7"
   },
   "devDependencies": {
-    "@types/node": "^22.10.5"
+    "@types/node": "^22.10.5",
+    "@types/tmp": "^0.2.6",
+    "@vitest/coverage-v8": "2.1.8",
+    "tmp": "^0.2.3",
+    "vitest": "^2.1.8"
   }
 }

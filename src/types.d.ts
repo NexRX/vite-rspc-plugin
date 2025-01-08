@@ -1,5 +1,5 @@
 import type { ClientArgs } from "@rspc/client";
-import type { resolvedConfig } from "./plugin";
+import { resolvedConfig } from "./logic/config";
 
 type RPCKind = "query" | "mutation" | "subscription";
 type ConfigResolved = ReturnType<typeof resolvedConfig>;
@@ -41,7 +41,9 @@ interface RPCConfig {
      * A record of prefixes for different RPC kinds.
      * @default { query: "query", mutation: "mutate", subscription: "subscribeTo" }
      */
-    prefix?: Record<RPCKind, string>;
+    prefix?: {
+      [K in RPCKind]?: string
+    };
 
     /**
      * Whether to apply prefixes only to duplicate function names.
@@ -52,8 +54,12 @@ interface RPCConfig {
 }
 
 interface RPCTypeMetadata {
+  /** Key or name of the RPC call */
   key: string;
+  /** The input type for the RPC call if any input is required */
   input?: string;
+  /** Whether the input type should be imported from the RPC file */
   importInput: boolean;
+  /** The return type of the RPC call. Even if its nullish */
   result: string;
 }
