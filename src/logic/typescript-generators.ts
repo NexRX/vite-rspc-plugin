@@ -1,5 +1,5 @@
-import ts from "typescript";
-import type { ConfigResolved, RPCKind, RPCTypeMetadata } from "../types";
+import * as ts from "typescript";
+import type { ConfigResolved, RPCKind, RPCTypeMetadata } from "../types.d.ts";
 import { RPC_METHODS, RPC_TYPE_KEYS } from "./rspc";
 import { camelCase, capitalize } from "./strings";
 import { extractTypeMetadata, isProceduresTypeAlias } from "./typescript-ast";
@@ -128,7 +128,7 @@ export function generateJSDoc(
    */`;
 }
 
-export function generateClient(config: ConfigResolved) {
+export function generateClient(config: ConfigResolved): string {
   return `
   // Generated Client and Config
   const transport = new FetchTransport(${config.client.transport});

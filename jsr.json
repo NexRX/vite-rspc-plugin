@@ -1,0 +1,6 @@
+{
+  "name": "@nexhub/vite-rspc-plugin",
+  "version": "1.0.0",
+  "exports": "./src/plugin.ts",
+  "license": "MIT"
+}

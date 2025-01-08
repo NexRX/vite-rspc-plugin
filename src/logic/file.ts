@@ -1,5 +1,5 @@
+import { mkdirSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
-import fs from "node:fs";
 
 export function normalizePath(input: string): string {
   return input.startsWith("./")
@@ -9,8 +9,8 @@ export function normalizePath(input: string): string {
 
 export function writeOutputFile(path: string, content: string) {
   console.log("Writing generated RPC functions to:", path);
-  fs.mkdirSync(dirname(path), { recursive: true });
-  fs.writeFileSync(path, content, {
+  mkdirSync(dirname(path), { recursive: true });
+  writeFileSync(path, content, {
     encoding: "utf-8",
     flush: true,
   });

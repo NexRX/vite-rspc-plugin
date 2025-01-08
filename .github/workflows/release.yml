@@ -1,0 +1,164 @@
+name: Release
+
+on:
+    push:
+        branches: [main]
+
+permissions:
+    contents: write # Needed for creating releases
+    pull-requests: write # Needed for creating version bump PRs
+    id-token: write # Needed for JSR OIDC authentication
+
+jobs:
+    version:
+        runs-on: ubuntu-latest
+        outputs:
+            version: ${{ steps.version.outputs.version }}
+        steps:
+            - uses: actions/checkout@v4
+              with:
+                fetch-depth: 0
+         
+            - uses: pnpm/action-setup@v3
+              with:
+                version: 8
+                run_install: false    
+            
+            - name: Set Git User
+              run: |
+                git config --global user.email "ci@nexhub.co.uk"
+                git config --global user.name "CICD"    
+                    
+            - name: Versions
+              uses: reecetech/version-increment@2024.10.1
+              id: version
+              with:
+                scheme: semver
+
+            - name: Debug version output
+              run: echo "new version ${{ steps.version.outputs.version }}"      
+                    
+            - name: Update package.json version
+              run: pnpm version ${{ steps.version.outputs.version }} --no-git-tag-version
+
+    publish-npm:
+        needs: version
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v4
+
+            - name: Set Git User
+              run: |
+                git config --global user.email "ci@nexhub.co.uk"
+                git config --global user.name "CICD"    
+            
+            - uses: actions/setup-node@v4
+              with:
+                node-version: '20'
+                registry-url: 'https://registry.npmjs.org'
+
+            - uses: pnpm/action-setup@v3
+              with:
+                version: 8
+                run_install: false
+
+            - name: Get pnpm store directory
+              id: pnpm-cache
+              shell: bash
+              run: |
+                echo "STORE_PATH=$(pnpm store path)" >> $GITHUB_OUTPUT
+
+            - uses: actions/cache@v4
+              name: Setup pnpm cache
+              with:
+                path: ${{ steps.pnpm-cache.outputs.STORE_PATH }}
+                key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+                restore-keys: |
+                  ${{ runner.os }}-pnpm-store-
+                    
+            - name: Install dependencies
+              run: pnpm install --no-frozen-lockfile
+                
+            - name: Build
+              run: pnpm run build
+                
+            - name: Update package.json version
+              run: pnpm version ${{ needs.version.outputs.version }} --no-git-tag-version
+
+            - name: Publish to NPM
+              run: pnpm publish --no-git-checks --access public
+              env:
+                NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+    publish-jsr:
+        needs: version
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v4  
+
+            - name: Set Git User
+              run: |
+                git config --global user.email "ci@nexhub.co.uk"
+                git config --global user.email "ci@nexhub.co.uk"
+                git config --global user.name "CICD"    
+            
+            - uses: actions/setup-node@v4
+              with:
+                node-version: '20'
+                registry-url: 'https://registry.npmjs.org'
+
+            - uses: pnpm/action-setup@v3
+              with:
+                version: 8
+                run_install: false
+
+            - name: Get pnpm store directory
+              id: pnpm-cache
+              shell: bash
+              run: |
+                echo "STORE_PATH=$(pnpm store path)" >> $GITHUB_OUTPUT
+
+            - uses: actions/cache@v4
+              name: Setup pnpm cache
+              with:
+                path: ${{ steps.pnpm-cache.outputs.STORE_PATH }}
+                key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+                restore-keys: |
+                  ${{ runner.os }}-pnpm-store-
+                    
+            - name: Install dependencies
+              run: pnpm install --no-frozen-lockfile
+                
+            - name: Build
+              run: pnpm run build
+                
+            - name: Update jsr.json version
+              run: |
+                NEW_VERSION=${{ needs.version.outputs.version }}
+                jq --arg new_version "$NEW_VERSION" '.version = $new_version' jsr.json > temp.json && mv temp.json jsr.json
+
+            - name: Publish to JSR
+              run: pnpx jsr publish --allow-dirty
+              # No NODE_AUTH_TOKEN needed here as we're using OIDC
+
+    tag:
+        needs: [publish-npm, publish-jsr, version]
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v4
+              with:
+               fetch-depth: 0   
+
+            - name: Set Git User
+              run: |
+                git config --global user.email "ci@nexhub.co.uk"
+                git config --global user.name "CICD"    
+
+            - name: Create GitHub Release
+              uses: softprops/action-gh-release@v1
+              with:
+                tag_name: ${{ needs.version.outputs.version }}
+                name: Release ${{ needs.version.outputs.version }}
+                generate_release_notes: true
+              env:
+                GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

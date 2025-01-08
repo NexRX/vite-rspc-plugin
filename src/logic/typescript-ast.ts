@@ -1,5 +1,5 @@
-import ts from "typescript";
-import { RPCTypeMetadata } from "../types";
+import * as ts from "typescript";
+import type { RPCTypeMetadata } from "../types.d.ts";
 
 /** Type guard and metadata extraction */
 export function isProceduresTypeAlias(

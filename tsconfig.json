@@ -1,24 +1,34 @@
 {
-    "compilerOptions": {
-      "strict": true,
-      "target": "ESNext",
-      "module": "ESNext",
-      "moduleResolution": "node",
-      "allowSyntheticDefaultImports": true,
-      "esModuleInterop": true,
-      "jsx": "preserve",
-      "jsxImportSource": "solid-js",
-      "resolveJsonModule": true,
-      "lib": [
-        "DOM",
-        "DOM.Iterable",
-        "ESNext"
-      ],
-      "types": [
-        "vite/client",
-        "node"
-      ],
-      "noEmit": true,
-      "isolatedModules": true
-    }
-  }
+  "compilerOptions": {
+    "strict": true,
+    "moduleResolution": "node",
+    "module": "ESNext",
+    "target": "es2020",
+    "declaration": true,
+    "outDir": "./dist",
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "jsx": "preserve",
+    "jsxImportSource": "solid-js",
+    "resolveJsonModule": true,
+    "skipLibCheck": true,
+    "lib": [
+      "DOM",
+      "DOM.Iterable",
+      "ESNext"
+    ],
+    "types": [
+      "vite/client",
+      "node"
+    ],
+    "noEmit": true,
+    "isolatedModules": true
+  },
+  "include": [
+    "src/**.ts",
+    "src/**.d.ts"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
+}

@@ -1,6 +1,5 @@
 import * as ts from "typescript";
-import fs, { unlinkSync, writeFileSync } from "node:fs";
-import tmp from "tmp";
+import { unlinkSync, writeFileSync } from "node:fs";
 import { expect, describe, it } from "vitest";
 import { join } from "node:path";
 import { initializeTypeScript } from "../src/plugin";
