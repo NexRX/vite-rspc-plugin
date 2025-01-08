@@ -1,7 +1,7 @@
 import type { Plugin } from "vite";
 import * as ts from "typescript";
 import { writeOutputFile } from "./logic/file";
-import type { ConfigResolved, RPCConfig } from "./types";
+import type { ConfigResolved, RPCConfig, TypescriptSource } from "./types.d.ts";
 import { findDuplicateRPCKeys, getAllRPCs } from "./logic/rspc";
 import {
   generateAllFunctions,
@@ -50,7 +50,7 @@ function generateRPC(config: ConfigResolved) {
 }
 
 /** exported only for testing purposes */
-export function initializeTypeScript(inputPath: string) {
+export function initializeTypeScript(inputPath: string): TypescriptSource {
   const program = ts.createProgram([inputPath], {});
   const sourceFile = program.getSourceFile(inputPath);
   if (!sourceFile) throw new Error(`Input file not found: ${inputPath}`);

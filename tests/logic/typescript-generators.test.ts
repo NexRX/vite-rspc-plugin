@@ -1,5 +1,4 @@
 import { describe, it, expect } from "vitest";
-import ts from "typescript";
 import {
   generateAllFunctions,
   generateFunctionName,

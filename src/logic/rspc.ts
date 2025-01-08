@@ -1,4 +1,4 @@
-import type { RPCKind } from "../types";
+import type { RPCKind } from "../types.d.ts";
 import { isProceduresTypeAlias, getPropertyType } from "./typescript-ast";
 import * as ts from "typescript";
 

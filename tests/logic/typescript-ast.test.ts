@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import ts from "typescript";
+import * as ts from "typescript";
 import {
   isProceduresTypeAlias,
   extractTypeMetadata,
