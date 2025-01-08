@@ -8,8 +8,6 @@
     "outDir": "./dist",
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
-    "jsx": "preserve",
-    "jsxImportSource": "solid-js",
     "resolveJsonModule": true,
     "skipLibCheck": true,
     "lib": [
@@ -21,14 +19,13 @@
       "vite/client",
       "node"
     ],
-    "noEmit": true,
-    "isolatedModules": true
+    "isolatedModules": true,
   },
   "include": [
-    "src/**.ts",
-    "src/**.d.ts"
+    "src"
   ],
   "exclude": [
-    "node_modules"
+    "node_modules",
+    "dist"
   ]
 }

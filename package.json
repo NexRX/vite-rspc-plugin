@@ -3,8 +3,10 @@
   "version": "1.0.0",
   "description": "A vite plugin for auto-generating dedicated functions for RSPC per query, mutation, and subscription with typescript",
   "type": "module",
+  "main": "dist/plugin.js",
+  "types": "dist/plugin.d.ts",
   "scripts": {
-    "build": "tsc --emitDeclarationOnly",
+    "build": "tsc",
     "prebuild": "rimraf dist",
     "test": "vitest run",
     "test:watch": "vitest",

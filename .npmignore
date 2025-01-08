@@ -1,0 +1,17 @@
+# Exclude source code and development files
+src/
+tests/
+node_modules/
+pnpm-lock.yaml
+package-lock.json
+eslint.config.js
+tsconfig.json
+jsr.json
+
+# Exclude build tools and configs
+.vscode/
+.idea/
+*.log
+
+# Exclude personal metadata
+*.env
