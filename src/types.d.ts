@@ -1,13 +1,14 @@
 import type { ClientArgs } from "@rspc/client";
-import { resolvedConfig } from "./logic/config";
+import type { resolvedConfig } from "./logic/config";
+import type * as ts from "typescript";
 
-type RPCKind = "query" | "mutation" | "subscription";
-type ConfigResolved = ReturnType<typeof resolvedConfig>;
+export type RPCKind = "query" | "mutation" | "subscription";
+export type ConfigResolved = ReturnType<typeof resolvedConfig>;
 
 /**
  * Configuration options for the RPC (Remote Procedure Call) system.
  */
-interface RPCConfig {
+export interface RPCConfig {
   /**
    * The input file or directory for the RPC definitions.
    */
@@ -42,7 +43,7 @@ interface RPCConfig {
      * @default { query: "query", mutation: "mutate", subscription: "subscribeTo" }
      */
     prefix?: {
-      [K in RPCKind]?: string
+      [K in RPCKind]?: string;
     };
 
     /**
@@ -53,7 +54,7 @@ interface RPCConfig {
   };
 }
 
-interface RPCTypeMetadata {
+export interface RPCTypeMetadata {
   /** Key or name of the RPC call */
   key: string;
   /** The input type for the RPC call if any input is required */
@@ -63,3 +64,14 @@ interface RPCTypeMetadata {
   /** The return type of the RPC call. Even if its nullish */
   result: string;
 }
+
+export interface TypescriptSource {
+  sourceFile: ts.SourceFile;
+  typeChecker: ts.TypeChecker;
+}
+
+export type RPCKeys = {
+  queries: string[];
+  mutations: string[];
+  subscriptions: string[];
+};

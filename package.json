@@ -1,9 +1,25 @@
 {
-  "name": "vite-rspc-plugin",
+  "name": "@nexhub/vite-rspc-plugin",
   "version": "1.0.0",
   "description": "A vite plugin for auto-generating dedicated functions for RSPC per query, mutation, and subscription with typescript",
+  "type": "module",
   "scripts": {
-    "test": "vitest"
+    "build": "tsc --emitDeclarationOnly",
+    "prebuild": "rimraf dist",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:coverage": "vitest run --coverage",
+    "test:ui": "vitest --ui",
+    "type-check": "tsc --noEmit",
+    "type-check:watch": "tsc --noEmit --watch",
+    "lint": "eslint 'src/**/*.{js,ts}'",
+    "lint:jsr": "pnpx jsr publish --dry-run",
+    "lint:fix": "eslint 'src/**/*.{js,ts}' --fix",
+    "format": "prettier --write \"**/*.{ts,tsx,js,jsx,json,md}\"",
+    "format:check": "prettier --check \"**/*.{ts,tsx,js,jsx,json,md}\"",
+    "clean": "rimraf dist node_modules",
+    "clean:dist": "rimraf dist",
+    "reinstall": "pnpm clean && pnpm install"
   },
   "keywords": [
     "vite",
@@ -12,17 +28,21 @@
     "typescript"
   ],
   "author": "NexRX",
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
     "@rspc/client": "^0.3.1",
     "typescript": "^5.7.2",
     "vite": "^6.0.7"
   },
   "devDependencies": {
+    "@eslint/js": "^9.17.0",
     "@types/node": "^22.10.5",
     "@types/tmp": "^0.2.6",
     "@vitest/coverage-v8": "2.1.8",
-    "tmp": "^0.2.3",
+    "eslint": "^9.17.0",
+    "globals": "^15.14.0",
+    "rimraf": "^6.0.1",
+    "typescript-eslint": "^8.19.1",
     "vitest": "^2.1.8"
   }
 }
