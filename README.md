@@ -1,11 +1,11 @@
 # @nexhub/vite-rspc-plugin
 
 <span class="badge-githubworkflow">
-
 <span class="badge-ci"><a href="https://npmjs.org/package/badges" title="CI Passing Status"><img src="https://github.com/NexRX/vite-rspc-plugin/actions/workflows/ci.yml/badge.svg" alt="CI Status" /></a></span>
 <span class="badge-npmversion"><a href="https://npmjs.org/package/@nexhub/vite-rspc-plugin" title="View this project on NPM"><img src="https://img.shields.io/npm/v/%40nexhub%2Fvite-rspc-plugin" alt="NPM version" /></a></span>
 <span class="badge-jsrversion"><a href="https://jsr.io/@nexhub/vite-rspc-plugin" title="View this project on JSR"><img src="https://img.shields.io/jsr/v/%40nexhub/vite-rspc-plugin" alt="JSR Version" /></a></span>
 <span class="badge-npmdownloads"><a href="https://npmjs.org/package/@nexhub/vite-rspc-plugin" title="View this project on NPM"><img src="https://img.shields.io/npm/dm/%40nexhub%2Fvite-rspc-plugin" alt="NPM downloads" /></a></span>
+<span class="badge-codeql"><a href="https://github.com/NexRX/vite-rspc-plugin/actions/workflows/github-code-scanning/codeql" title="CodeQL"><img src="https://github.com/NexRX/vite-rspc-plugin/actions/workflows/github-code-scanning/codeql/badge.svg" alt="CodeQL" /></a></span>
 </span>
 
 A Vite plugin for auto-generating dedicated functions for RSPC per query, mutation, and subscription with TypeScript.
